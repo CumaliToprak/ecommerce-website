@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using UzmanMetal.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace UzmanMetal.Api
 {
@@ -31,6 +33,10 @@ namespace UzmanMetal.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UzmanMetal.Api", Version = "v1" });
+            });
+            services.AddDbContext<DataContext>(opt =>
+            {
+                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
         }
 

@@ -5,7 +5,6 @@ namespace UzmanMetal.Core
 {
     public interface IUnitOfWork
     {
-         IUserRepository UserRepository{get;}
          Task<int> CommitAsync();
     }
 }
