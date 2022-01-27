@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 # Misc
 **/client/src/app/generated/
+/service/UzmanMetal.Api/appsettings.Development.json
+service/UzmanMetal.Api/appsettings.json

@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using UzmanMetal.Data;
 using Microsoft.EntityFrameworkCore;
+using UzmanMetal.Api.Settings;
+using UzmanMetal.Api.Services.Email;
 
 namespace UzmanMetal.Api
 {
@@ -38,6 +40,8 @@ namespace UzmanMetal.Api
             {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
