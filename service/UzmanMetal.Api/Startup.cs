@@ -15,6 +15,7 @@ using UzmanMetal.Data;
 using Microsoft.EntityFrameworkCore;
 using UzmanMetal.Api.Settings;
 using UzmanMetal.Api.Services.Email;
+using UzmanMetal.Api.Extensions;
 
 namespace UzmanMetal.Api
 {
@@ -23,8 +24,8 @@ namespace UzmanMetal.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
-
+        
+}
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -32,16 +33,9 @@ namespace UzmanMetal.Api
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UzmanMetal.Api", Version = "v1" });
-            });
-            services.AddDbContext<DataContext>(opt =>
-            {
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
-            });
-            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
-            services.AddTransient<IMailService, MailService>();
+            services.AddApplicationServices(Configuration);
+            services.AddIdentityServices(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +52,10 @@ namespace UzmanMetal.Api
 
             app.UseRouting();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
