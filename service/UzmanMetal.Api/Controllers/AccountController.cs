@@ -27,21 +27,18 @@ namespace UzmanMetal.Api.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _config;
         private readonly TokenService _tokenService;
         private readonly IMailService _mailService;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                 SignInManager<ApplicationUser> signInManager,
-                RoleManager<IdentityRole> roleManager,
                 IConfiguration config,
                 TokenService tokenService,
                 IMailService mailService
                 )
         {
             this._signInManager = signInManager;
-            this._roleManager = roleManager;
             this._config = config;
             this._tokenService = tokenService;
             this._mailService = mailService;
